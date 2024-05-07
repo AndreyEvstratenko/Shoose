@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     MainMenu mainmenu;
     mainmenu.show();
 
-    QSqlQuery q("INSERT INTO shoose (name, brand, size, count) VALUES ('Air', 'Nike', 38, 11)");
+    //QSqlQuery q("INSERT INTO shoose (name, brand, size, count) VALUES ('Air', 'Nike', 38, 11)");
 
 
 

@@ -12,7 +12,11 @@ FindPair::FindPair(QWidget *parent)
     ui->setupUi(this);
     auto model = new QSqlQueryModel;
     ui->tableView->setModel(model);
-    model->setQuery("SELECT * FROM shoose");
+    model->setQuery("SELECT * FROM shoose WHERE FALSE");
+    model->insertRow(model->rowCount());
+    auto index = model->index(model->rowCount(),0);
+    qDebug()<<model->setData(index, QVariant(), Qt::EditRole);
+
 }
 
 FindPair::~FindPair()
