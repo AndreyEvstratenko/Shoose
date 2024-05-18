@@ -1,22 +1,25 @@
 #include "findpair.h"
 #include "qsqlrecord.h"
+#include "qtimer.h"
 #include "ui_findpair.h"
+#include <QSqlQueryModel>
 
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QStandardItemModel>
 
 FindPair::FindPair(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::FindPair)
 {
     ui->setupUi(this);
-    auto model = new QSqlQueryModel;
-    ui->tableView->setModel(model);
-    model->setQuery("SELECT * FROM shoose WHERE FALSE");
-    model->insertRow(model->rowCount());
-    auto index = model->index(model->rowCount(),0);
-    qDebug()<<model->setData(index, QVariant(), Qt::EditRole);
-
+    QSqlQueryModel queryModel;
+    queryModel.setQuery("SELECT * FROM shoose");
+    QStandardItemModel *headerModel = new QStandardItemModel(1, queryModel.columnCount());
+    for (int i = 0; i < queryModel.columnCount(); ++i) {
+        headerModel->setHeaderData(i, Qt::Horizontal, queryModel.headerData(i, Qt::Horizontal).toString());
+    }
+    ui->tableView->setModel(headerModel);
 }
 
 FindPair::~FindPair()
