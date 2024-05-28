@@ -15,30 +15,19 @@
 Chart::Chart(QWidget *parent)
     : QDialog{parent}
 {
-
-
-
-
-
     QBarSeries *series = new QBarSeries();
-    series->append(set);
-
-
     QChart *chart = new QChart();
     chart->addSeries(series);
     chart->setTitle("Simple bar chart example");
     chart->setAnimationOptions(QChart::SeriesAnimations);
-
-
-
     QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append(categories);
     chart->addAxis(axisX, Qt::AlignBottom);
     series->attachAxis(axisX);
 
 
     QValueAxis *axisY = new QValueAxis();
-    axisY->setRange(0, 15);
+    axisY->setRange(0, 30);
+    axisY->setTickCount(16);
     chart->addAxis(axisY, Qt::AlignLeft);
     series->attachAxis(axisY);
 
@@ -56,31 +45,25 @@ Chart::Chart(QWidget *parent)
     l->addWidget(model);
     l->addWidget(push);
 
-    connect(push, &QPushButton::clicked, [brand, model, this](){
+    connect(push, &QPushButton::clicked, [brand, model, this, series, axisX](){
         QSqlQuery q;
-        q.prepare("SELECT size, count FROM shoose WHERE brand = '?' AND model = '?' ORDER BY size ASC");
+        q.prepare("SELECT size, count FROM shoose WHERE brand = ? AND name = ? ORDER BY size ASC");
         q.addBindValue(brand->text());
         q.addBindValue(model->text());
         if (!q.exec())
         {
-            qDebug() << q.lastError().text();
-            return;
-        }
-        if (q.numRowsAffected()==0)
-        {
-            qDebug() << "нет таких элементов";
+            qDebug() << q.lastError().text()<<q.lastQuery();
             return;
         }
         QBarSet *set = new QBarSet(brand->text());
-
-
         QStringList categories;
-
         while(q.next())
         {
             *set << q.value(1).toInt();
             categories << QString::number(q.value(0).toInt());
         }
+        series->append(set);
+        axisX->append(categories);
     });
 
 }
