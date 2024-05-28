@@ -2,6 +2,8 @@
 #define FINDPAIR_H
 
 #include <QDialog>
+#include <QStandardItemModel>
+#include <QAbstractButton>
 
 namespace Ui {
 class FindPair;
@@ -15,8 +17,14 @@ public:
     explicit FindPair(QWidget *parent = nullptr);
     ~FindPair();
 
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_clicked(QAbstractButton *button);
+
 private:
     Ui::FindPair *ui;
+    QStandardItemModel *headerModel;
 };
 
 #endif // FINDPAIR_H

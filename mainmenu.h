@@ -20,6 +20,12 @@ private slots:
 
     void on_findPair_clicked();
 
+    void on_deletPair_clicked();
+
+    void on_modelsOfBrand_clicked();
+
+    void on_chart_clicked();
+
 private:
     Ui::MainMenu *ui;
 };

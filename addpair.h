@@ -2,6 +2,7 @@
 #define ADDPAIR_H
 
 #include <QDialog>
+#include <QStandardItemModel>
 
 namespace Ui {
 class AddPair;
@@ -15,8 +16,13 @@ public:
     explicit AddPair(QWidget *parent = nullptr);
     ~AddPair();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::AddPair *ui;
+    QStandardItemModel *headerModel;
+    bool success() const;
 };
 
 #endif // ADDPAIR_H

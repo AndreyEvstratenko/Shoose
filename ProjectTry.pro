@@ -1,5 +1,5 @@
 QT       += core gui
-QT += sql
+QT += sql charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     addpair.cpp \
+    chart.cpp \
     deletepair.cpp \
     findpair.cpp \
     main.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     addpair.h \
+    chart.h \
     deletepair.h \
     findpair.h \
     mainmenu.h \
